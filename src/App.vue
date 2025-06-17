@@ -6,9 +6,6 @@ import ThemeToggle from "./components/ThemeToggle.vue";
 <template>
   <ThemeToggle />
   <Sidebar />
-  <div class="main">
-    <h1>Das ist h1 tag.</h1>
-  </div>
 </template>
 
 <style>
@@ -17,9 +14,5 @@ import ThemeToggle from "./components/ThemeToggle.vue";
   min-height: 100vh;
   line-height: 1.5;
   color-scheme: light dark;
-}
-
-.main {
-  min-height: 400vh;
 }
 </style>
