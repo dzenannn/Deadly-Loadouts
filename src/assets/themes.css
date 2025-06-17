@@ -1,0 +1,19 @@
+:root {
+  --background-color: #dfdfdf;
+  --text-color: #000;
+}
+
+html.dark {
+  --background-color: #272727 !important;
+  --text-color: #fff !important;
+}
+
+html.dark .user-preferences {
+  color: #000;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+}
