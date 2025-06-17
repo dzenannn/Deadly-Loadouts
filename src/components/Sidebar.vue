@@ -2,16 +2,16 @@
 
 <template>
   <div class="sidebar">
-    <h4>Meta Builds</h4>
-    <h4>Perks</h4>
-    <h4>Items</h4>
-    <h4>Tips & Tricks</h4>
+    <h5>How DBD Works?</h5>
+    <h5>Perks</h5>
+    <h5>Items</h5>
+    <h5>Tips & Tricks</h5>
   </div>
 </template>
 
 <style scoped>
 .sidebar {
-  height: 100vh;
+  min-height: 100vh;
   position: fixed;
   top: 0;
   right: 0;
