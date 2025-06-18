@@ -15,7 +15,7 @@ import ThemeToggle from "./components/ThemeToggle.vue";
 @import "./assets/themes.css";
 #app {
   font-family: sans-serif;
-  min-height: 100vh;
+  min-height: 200vh;
   line-height: 1.5;
   color-scheme: light dark;
 }
