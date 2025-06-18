@@ -2,8 +2,8 @@
 
 <template>
   <div class="sidebar">
-    <h5>How DBD Works?</h5>
-    <h5>Perks</h5>
+    <RouterLink to="/">Main page</RouterLink>
+    <RouterLink :to="{ name: 'perks' }">Perks</RouterLink>
     <h5>Items</h5>
     <h5>Tips & Tricks</h5>
   </div>

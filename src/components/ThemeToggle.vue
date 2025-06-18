@@ -15,14 +15,14 @@ localStorage.setItem("theme", theme.value);
 .theme-toggle {
   position: fixed;
   top: 0;
-  right: 0;
+  right: 5px;
   z-index: 1;
   text-shadow: 1px 1px 6px black;
   transition: bottom 1s ease 0s;
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   padding: 0.6rem;
   transition: scale 0.25s;
 }
