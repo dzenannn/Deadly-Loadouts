@@ -1,8 +1,5 @@
 <template>
-  <ThemeToggle />
-
   <div class="main-container">
-    <Sidebar />
     <div style="padding: 10px 18% 0 10px">
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus,
       maiores beatae eaque pariatur veniam recusandae dolorem vel repudiandae
@@ -31,9 +28,6 @@
   </div>
 </template>
 
-<script setup>
-import Sidebar from "../components/Sidebar.vue";
-import ThemeToggle from "../components/ThemeToggle.vue";
-</script>
+<script setup></script>
 
 <style></style>

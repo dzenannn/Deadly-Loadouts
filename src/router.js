@@ -1,6 +1,9 @@
 import { createWebHistory, createRouter } from "vue-router";
 import HomeView from "./views/HomeView.vue";
-import PerksView from "./views/PerksView.vue";
+import CharactersView from "./views/CharactersView.vue";
+import ItemsView from "./views/ItemsView.vue";
+import TipsView from "./views/TipsView.vue";
+import LoadoutBuilderView from "./views/LoadoutBuilderView.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -11,11 +14,27 @@ const router = createRouter({
       component: HomeView,
     },
     {
-      path: "/perks",
-      name: "perks",
-      component: PerksView,
+      path: "/loadout-builder",
+      name: "loadout-builder",
+      component: LoadoutBuilderView,
+    },
+    {
+      path: "/characters",
+      name: "characters",
+      component: CharactersView,
+    },
+    {
+      path: "/items",
+      name: "items",
+      component: ItemsView,
+    },
+    {
+      path: "/tips",
+      name: "tips",
+      component: TipsView,
     },
   ],
+  linkActiveClass: "active-link",
 });
 
 export default router;
