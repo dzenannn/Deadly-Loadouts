@@ -8,11 +8,11 @@
       <div>
         <p style="font-size: 1.03rem">
           Are you ready to dominate the fog and rise above the rest? At
-          <span style="color: #e20000; font-style: italic"> Deadly Loadout</span
-          >, we provide you with the most optimized builds, strategies, and
-          tools to enhance your gameplay. Whether you're a survivor or a killer,
-          we've got you covered with expertly crafted loadouts that can elevate
-          your game.
+          <DeadlyLoadoutText />
+          we provide you with the most optimized builds, strategies, and tools
+          to enhance your gameplay. Whether you're a survivor or a killer, we've
+          got you covered with expertly crafted loadouts that can elevate your
+          game.
         </p>
         <h3 style="text-decoration: underline; padding-top: 40px">
           What we offer
@@ -230,7 +230,6 @@
         <img :src="imgArtwork" alt="dbd_artwork" />
       </div>
     </div>
-    <hr style="margin: 25px 0 25px 0; opacity: 0.6" />
     <div class="second-section">
       <MeltingText
         meltingText="Survivor or Killer?"
@@ -241,25 +240,23 @@
           font-style: italic;
         "
       />
-
       <p style="font-size: 1.2rem">
-        No matter your role,
-        <span style="color: #e20000; font-style: italic">Deadly Loadout</span>
-        offers specialized builds that work for you. Choose your favorite
-        survivor or killer, explore their strengths, and discover the most
-        effective loadouts that bring out their full potential. The world of
-        Dead By Daylight is always evolving. With
-        <span style="color: #e20000; font-style: italic">Deadly Loadout</span>,
-        you’ll always be prepared for the next challenge, with cutting-edge
-        loadouts that keep you competitive. Whether you're just starting or a
-        seasoned veteran, our detailed recommendations will help you sharpen
-        your skills and survive longer – or hunt down your prey faster.
+        No matter your role, <DeadlyLoadoutText /> offers specialized builds
+        that work for you. Choose your favorite survivor or killer, explore
+        their strengths, and discover the most effective loadouts that bring out
+        their full potential. The world of Dead By Daylight is always evolving.
+        With <DeadlyLoadoutText />, you’ll always be prepared for the next
+        challenge, with cutting-edge loadouts that keep you competitive. Whether
+        you're just starting or a seasoned veteran, our detailed recommendations
+        will help you sharpen your skills and survive longer – or hunt down your
+        prey faster.
       </p>
     </div>
   </div>
 </template>
 
 <script setup>
+import DeadlyLoadoutText from "../components/DeadlyLoadoutText.vue";
 import MeltingText from "../components/MeltingText.vue";
 
 const imgArtwork =
@@ -302,7 +299,7 @@ const imgArtwork =
 }
 
 .second-section {
-  padding-inline: 60px;
+  padding: 60px 60px 60px 60px;
   display: flex;
   flex-direction: column;
 }

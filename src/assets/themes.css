@@ -1,10 +1,21 @@
 :root {
-  --background-color: #cacaca;
+  --background: linear-gradient(
+    to bottom right,
+    #818eaa,
+    #cf0f0f,
+    #a3a3a3
+  ) !important;
   --text-color: #000;
 }
 
 html.dark {
-  --background-color: #272727 !important;
+  min-height: 100vh;
+  --background: linear-gradient(
+    to bottom right,
+    #111827,
+    #450a0a,
+    #000000
+  ) !important;
   --text-color: #fff !important;
 }
 
@@ -13,7 +24,7 @@ html.dark .user-preferences {
 }
 
 body {
-  background-color: var(--background-color);
+  background: var(--background);
   color: var(--text-color);
   transition: background-color 0.3s, color 0.3s;
 }
