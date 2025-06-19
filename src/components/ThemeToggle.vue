@@ -29,7 +29,6 @@
 
 <script setup>
 import { useTheme } from "../composables/useTheme";
-import Sun from "./ui/Sun.vue";
 /* eslint-disable */
 const { theme, toggleTheme } = useTheme();
 localStorage.setItem("theme", theme.value);

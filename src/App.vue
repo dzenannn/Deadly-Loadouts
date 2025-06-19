@@ -8,6 +8,7 @@ const landed = ref(true);
 
 function submitLanded() {
   landed.value = false;
+  console.log(landed.value);
 }
 </script>
 

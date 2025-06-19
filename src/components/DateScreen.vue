@@ -1,18 +1,33 @@
 <template>
   <div class="date-screen">
-    <form>
-      <input type="date" name="date" id="date" :min="min" :max="max" />
+    <form @submit="submitHandler">
+      <VueDatePicker
+        :min-date="`01/01/1970`"
+        :max-date="max"
+        v-model="date"
+        required
+      />
+      <button type="submit">Submit</button>
     </form>
-    <button @click="$emit('submit-landed')">Submit</button>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import VueDatePicker from "@vuepic/vue-datepicker";
+import "@vuepic/vue-datepicker/dist/main.css";
+import { ref, defineEmits } from "vue";
+
+const emit = defineEmits(["submit-landed"]);
+const date = ref();
 
 const year = new Date().getFullYear();
 const max = ref(`${year - 18}-12-31`);
-const min = ref(`1970-01-01`);
+
+function submitHandler(e) {
+  e.preventDefault();
+  if (!date.value) return;
+  emit("submit-landed");
+}
 </script>
 
 <style scoped>
@@ -60,5 +75,6 @@ form input {
   font-size: 1.25rem;
   letter-spacing: 0.6rem;
   background-color: grey;
+  cursor: pointer;
 }
 </style>
