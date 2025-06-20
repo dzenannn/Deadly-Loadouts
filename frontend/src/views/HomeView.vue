@@ -258,7 +258,7 @@
         prey faster.
       </p>
       <button class="loadoutButton">
-        <RouterLink to="/loadout-builder">Build your Loadout ⟶</RouterLink>
+        <RouterLink to="/loadouts">Build your Loadout ⟶</RouterLink>
       </button>
     </div>
   </div>

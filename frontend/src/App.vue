@@ -25,7 +25,7 @@ function submitLanded() {
 @import "./assets/themes.css";
 html {
   scroll-behavior: smooth;
-  user-select: none;
+  /* user-select: none; */
   overflow-y: scroll;
 }
 
