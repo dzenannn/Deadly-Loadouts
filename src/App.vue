@@ -24,6 +24,8 @@ function submitLanded() {
 <style>
 @import "./assets/themes.css";
 html {
+  scroll-behavior: smooth;
+  user-select: none;
   overflow-y: scroll;
 }
 
@@ -32,5 +34,9 @@ html {
   font-family: sans-serif;
   line-height: 1.5;
   color-scheme: light dark;
+}
+
+a {
+  text-decoration: none;
 }
 </style>
