@@ -14,7 +14,7 @@ import "animate.css";
       style="--animate-duration: 1s; line-height: 2.8rem"
       class="animate__animated animate__bounceInRight"
     >
-      <RouterLink to="/loadout-builder">Loadout Builder</RouterLink></a
+      <RouterLink to="/loadouts">Loadouts</RouterLink></a
     >
     <a
       class="animate__animated animate__bounceInRight"

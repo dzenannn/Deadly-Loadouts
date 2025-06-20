@@ -3,7 +3,7 @@ import HomeView from "./views/HomeView.vue";
 import CharactersView from "./views/CharactersView.vue";
 import ItemsView from "./views/ItemsView.vue";
 import TipsView from "./views/TipsView.vue";
-import LoadoutBuilderView from "./views/LoadoutBuilderView.vue";
+import Loadouts from "./views/Loadouts.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -14,9 +14,9 @@ const router = createRouter({
       component: HomeView,
     },
     {
-      path: "/loadout-builder",
-      name: "loadout-builder",
-      component: LoadoutBuilderView,
+      path: "/loadouts",
+      name: "loadouts",
+      component: Loadouts,
     },
     {
       path: "/characters",

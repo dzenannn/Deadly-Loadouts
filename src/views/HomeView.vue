@@ -1,12 +1,12 @@
 <template>
   <div class="main-container">
-    <h3 id="title">
+    <h2 id="title">
       Deadly Loadout <br />
       <span id="sub"> Your Ultimate Dead By Daylight Companion</span>
-    </h3>
+    </h2>
     <div class="first-section">
       <div>
-        <p style="font-size: 1.03rem">
+        <p style="font-size: 1.2rem">
           Are you ready to dominate the fog and rise above the rest? At
           <DeadlyLoadoutText />
           we provide you with the most optimized builds, strategies, and tools
@@ -249,6 +249,12 @@
         challenge, with cutting-edge loadouts that keep you competitive. Whether
         you're just starting or a seasoned veteran, our detailed recommendations
         will help you sharpen your skills and survive longer – or hunt down your
+        prey faster.The world of Dead By Daylight is always evolving.
+        <br /><br />
+        With <DeadlyLoadoutText />, you’ll always be prepared for the next
+        challenge, with cutting-edge loadouts that keep you competitive. Whether
+        you're just starting or a seasoned veteran, our detailed recommendations
+        will help you sharpen your skills and survive longer – or hunt down your
         prey faster.
       </p>
       <button class="loadoutButton">
@@ -311,6 +317,7 @@ const imgArtwork =
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-bottom: 15rem;
 }
 
 .loadoutButton {
