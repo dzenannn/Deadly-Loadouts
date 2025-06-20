@@ -15,7 +15,7 @@
 <script setup>
 import VueDatePicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
-import { ref, defineEmits } from "vue";
+import { ref } from "vue";
 
 const emit = defineEmits(["submit-landed"]);
 const date = ref();
