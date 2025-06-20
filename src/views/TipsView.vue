@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Tips</h2>
+    <h2 style="text-align: center">Tips</h2>
   </div>
 </template>
 

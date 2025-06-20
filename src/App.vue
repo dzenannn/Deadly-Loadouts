@@ -1,10 +1,9 @@
 <script setup>
 import DateScreen from "./components/DateScreen.vue";
 import Sidebar from "./components/Sidebar.vue";
-import ThemeToggle from "./components/ThemeToggle.vue";
 import { ref } from "vue";
 
-const landed = ref(true);
+const landed = ref(false);
 
 function submitLanded() {
   landed.value = false;
@@ -16,7 +15,6 @@ function submitLanded() {
   <DateScreen v-if="landed" @submit-landed="submitLanded" />
   <div v-if="!landed">
     <Sidebar />
-    <ThemeToggle />
     <div style="padding-right: 17.5%">
       <RouterView />
     </div>
@@ -25,7 +23,12 @@ function submitLanded() {
 
 <style>
 @import "./assets/themes.css";
+html {
+  overflow-y: scroll;
+}
+
 #app {
+  min-width: 100%;
   font-family: sans-serif;
   line-height: 1.5;
   color-scheme: light dark;

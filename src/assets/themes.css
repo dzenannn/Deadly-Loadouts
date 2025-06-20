@@ -1,11 +1,12 @@
 :root {
+  min-height: 100vh;
   --background: linear-gradient(
     to bottom right,
-    #818eaa,
-    #cf0f0f,
-    #a3a3a3
+    #111827,
+    #450a0a,
+    #000000
   ) !important;
-  --text-color: #000;
+  --text-color: #fff !important;
 }
 
 html.dark {

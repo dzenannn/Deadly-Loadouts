@@ -1,13 +1,33 @@
-<script setup></script>
+<script setup>
+import "animate.css";
+</script>
 
 <template>
   <div class="sidebar">
-    <a> <RouterLink to="/">Main page</RouterLink></a>
-    <a style="line-height: 2.8rem">
+    <a
+      class="animate__animated animate__bounceInRight"
+      style="--animate-duration: 0.9s"
+    >
+      <RouterLink to="/">Main page</RouterLink></a
+    >
+    <a
+      style="--animate-duration: 1s; line-height: 2.8rem"
+      class="animate__animated animate__bounceInRight"
+    >
       <RouterLink to="/loadout-builder">Loadout Builder</RouterLink></a
     >
-    <a> <RouterLink to="/characters">Characters</RouterLink></a>
-    <a> <RouterLink to="/tips">Tips & Tricks</RouterLink></a>
+    <a
+      class="animate__animated animate__bounceInRight"
+      style="--animate-duration: 1.1s"
+    >
+      <RouterLink to="/characters">Characters</RouterLink></a
+    >
+    <a
+      class="animate__animated animate__bounceInRight"
+      style="--animate-duration: 1.2s"
+    >
+      <RouterLink to="/tips">Tips & Tricks</RouterLink></a
+    >
   </div>
 </template>
 
@@ -20,8 +40,8 @@
   top: 0;
   right: 0;
   width: 17.5%;
-  background-color: #464646;
-  border-left: 1px solid black;
+  background-color: #5e1c1c;
+  border-left: 2px solid black;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -31,20 +51,27 @@
   gap: 80px;
 }
 
+.sidebar {
+  background: no-repeat center center;
+  background-size: cover;
+  box-shadow: inset 0 0 30px #a80a0a;
+}
+
 .active-link {
   font-weight: bold;
-  color: #b9b9b9;
+  color: #9e0000;
   text-decoration: underline;
 }
 
 a {
   text-align: center;
   text-decoration: none;
-  color: #000000;
+  color: #dadada;
+  text-shadow: 1px 1px 3px #000;
   transition: scale 0.2s;
 }
 
 a:hover {
-  scale: 1.06;
+  scale: 1.02;
 }
 </style>

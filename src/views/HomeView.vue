@@ -1,7 +1,7 @@
 <template>
   <div class="main-container">
     <h3 id="title">
-      Welcome to Deadly Loadout <br />
+      Deadly Loadout <br />
       <span id="sub"> Your Ultimate Dead By Daylight Companion</span>
     </h3>
     <div class="first-section">
@@ -256,6 +256,7 @@
 </template>
 
 <script setup>
+import "animate.css";
 import DeadlyLoadoutText from "../components/DeadlyLoadoutText.vue";
 import MeltingText from "../components/MeltingText.vue";
 
@@ -284,13 +285,17 @@ const imgArtwork =
 }
 
 #title {
-  color: #e20000;
+  color: #9e0000;
   text-shadow: 1px 1px 4px black;
   font-family: "Caprasimo";
   font-size: 2rem;
   padding-top: 2%;
   text-align: center;
-  letter-spacing: 0.8rem;
+  letter-spacing: 1rem;
+}
+
+#sub {
+  letter-spacing: 0.45rem;
 }
 
 .boldItalic {
