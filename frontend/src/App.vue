@@ -1,15 +1,35 @@
 <script setup>
+import axios from "axios";
 import DateScreen from "./components/DateScreen.vue";
 import Sidebar from "./components/Sidebar.vue";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import Modal from "./components/ui/Modal.vue";
 
 const landed = ref(false);
+
+const formatPatch = (patch = "No patches found") => {
+  const breakString = patch.replace(/\./g, `.<br><br>`);
+  return breakString.replace("unknown", "latest");
+};
 
 function submitLanded() {
   landed.value = false;
   console.log(landed.value);
 }
+
+const patch = ref("");
+
+onMounted(async () => {
+  try {
+    const res = await axios.get(
+      "https://dbd-summarizer.onrender.com/patches?patch=510"
+    );
+    const data = res.data;
+    patch.value = formatPatch(data);
+  } catch (e) {
+    console.log(e.message);
+  }
+});
 </script>
 
 <template>
@@ -19,27 +39,14 @@ function submitLanded() {
     <Modal
       style="
         padding-left: 10px;
-        text-shadow: 1px 1px 5px black;
+        text-shadow: 1px 1px 2px black;
         font-style: italic;
       "
       title="What's New? (Jun 17, 2025 patch)"
       button="Latest Patch"
       color="#d90000"
     >
-      <ul
-        style="
-          padding: 20px;
-          display: flex;
-          flex-direction: column;
-          gap: 15px;
-          font-style: italic;
-          list-style-type: circle;
-        "
-      >
-        <li>Ghostface killer release.</li>
-        <li>The Nightmare buffed.</li>
-        <li>New Map added - Fazbear's Pizza.</li>
-      </ul>
+      <p v-html="patch"></p>
     </Modal>
     <div style="padding-right: 17.5%">
       <RouterView />

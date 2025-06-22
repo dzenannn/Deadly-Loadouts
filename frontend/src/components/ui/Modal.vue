@@ -4,7 +4,7 @@
     <div v-if="showModal" class="modal" @click.self="showModal = false">
       <div class="modal-content">
         <span class="close" @click="showModal = false">&times;</span>
-        <h2 style="text-align: center">{{ title }}</h2>
+        <h1>{{ title }}</h1>
         <slot></slot>
       </div>
     </div>
@@ -45,7 +45,7 @@ export default {
   background: #770000;
   padding: 40px 20px 20px 20px;
   border-radius: 8px;
-  min-width: 500px;
+  min-width: 50%;
   width: min-content;
   position: relative;
 }
@@ -70,7 +70,10 @@ a:hover {
   text-decoration: underline;
 }
 
-h2 {
-  text-shadow: 1px 1px 3px black;
+h1 {
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+  text-align: center;
+  padding-bottom: 40px;
+  color: #300000;
 }
 </style>
