@@ -8,7 +8,7 @@ import Modal from "./components/ui/Modal.vue";
 const landed = ref(false);
 
 const formatPatch = (patch = "No patches found") => {
-  const breakString = patch.replace(/\./g, `.<br><br>`);
+  const breakString = patch.replace(/\./g, `.<br>`);
   return breakString.replace("unknown", "latest");
 };
 
@@ -46,7 +46,7 @@ onMounted(async () => {
       button="Latest Patch"
       color="#d90000"
     >
-      <p v-html="patch"></p>
+      <p v-html="patch" style="line-height: 2rem"></p>
     </Modal>
     <div style="padding-right: 17.5%">
       <RouterView />

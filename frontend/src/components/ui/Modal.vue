@@ -1,8 +1,10 @@
 <template>
   <div>
-    <a :style="color" @click="showModal = true">{{ button }}</a>
+    <a :style="color" @click="showModal = true" class="animUnderline">{{
+      button
+    }}</a>
     <div v-if="showModal" class="modal" @click.self="showModal = false">
-      <div class="modal-content">
+      <div class="modal-content animate__animated animate__fadeInDown">
         <span class="close" @click="showModal = false">&times;</span>
         <h1>{{ title }}</h1>
         <slot></slot>
@@ -45,7 +47,7 @@ export default {
   background: #770000;
   padding: 40px 20px 20px 20px;
   border-radius: 8px;
-  min-width: 50%;
+  min-width: 60%;
   width: min-content;
   position: relative;
 }
@@ -75,5 +77,9 @@ h1 {
   text-align: center;
   padding-bottom: 40px;
   color: #300000;
+}
+
+.animate__animated.animate__headShake {
+  --animate-duration: 0.75s;
 }
 </style>
