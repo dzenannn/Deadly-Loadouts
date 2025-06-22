@@ -1,5 +1,6 @@
 <script setup>
 import "animate.css";
+import Modal from "./ui/Modal.vue";
 </script>
 
 <template>
@@ -18,10 +19,10 @@ import "animate.css";
     >
     <a
       class="animate__animated animate__bounceInRight"
-      style="--animate-duration: 1.1s"
+      style="--animate-duration: 1.1s; cursor: pointer"
     >
-      <RouterLink to="/characters">Characters</RouterLink></a
-    >
+      Nista
+    </a>
     <a
       class="animate__animated animate__bounceInRight"
       style="--animate-duration: 1.2s"
