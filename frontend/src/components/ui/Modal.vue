@@ -1,11 +1,9 @@
 <template>
   <div>
-    <a :style="color" @click="showModal = true" class="animUnderline">{{
-      button
-    }}</a>
-    <div v-if="showModal" class="modal" @click.self="showModal = false">
+    <!-- <a :style="color" @click="$emit('open')">{{ button }}</a> -->
+    <div v-if="showModal" class="modal" @click.self="$emit('close')">
       <div class="modal-content animate__animated animate__fadeInDown">
-        <span class="close" @click="showModal = false">&times;</span>
+        <span class="close" @click="$emit('close')">&times;</span>
         <h1>{{ title }}</h1>
         <slot></slot>
       </div>
@@ -16,21 +14,38 @@
 <script>
 export default {
   name: "Modal",
+  props: {
+    showModal: Boolean, //color: String//,
+    button: String,
+    title: String,
+  },
   data() {
     return {
-      showModal: false,
+      images: {
+        prva: {
+          src: "../../assets/claire-redfield.jpg",
+          alt: "Claire",
+        },
+        druga: {
+          src: "",
+          alt: "",
+        },
+        treca: {
+          src: "",
+          alt: "",
+        },
+      },
     };
   },
-  props: { color: String, button: String, title: String },
   computed: {
-    color() {
-      return "color: " + this.color;
-    },
+    // color() {
+    //   return "color: " + this.color;
+    // },
   },
 };
 </script>
 
-<style>
+<style scoped>
 .modal {
   position: fixed;
   z-index: 1000;
@@ -38,27 +53,46 @@ export default {
   top: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.75);
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 .modal-content {
-  background: #770000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   padding: 40px 20px 20px 20px;
-  border-radius: 8px;
+  border-radius: 15px;
+  min-height: 80%;
   min-width: 60%;
   width: min-content;
   position: relative;
+  border: 3px solid #000;
+  color: #fff;
+  font-weight: bold;
 }
+
+.modal-content::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("../../assets/huntress.jpg") center/cover no-repeat;
+  filter: blur(2px);
+  z-index: -1;
+  border-radius: 15px;
+}
+
 .close {
   position: absolute;
   right: 10px;
   top: 10px;
   font-size: 28px;
   cursor: pointer;
-  color: rgb(121, 121, 121);
+  color: #000;
 }
+
 .close:hover {
   color: #505050;
 }
@@ -73,10 +107,12 @@ a:hover {
 }
 
 h1 {
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+  position: absolute;
+  top: 10px;
+  text-shadow: 1px 1px 2px #000000;
   text-align: center;
   padding-bottom: 40px;
-  color: #300000;
+  color: #510000;
 }
 
 .animate__animated.animate__headShake {

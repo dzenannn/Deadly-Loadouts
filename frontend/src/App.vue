@@ -5,7 +5,10 @@ import Sidebar from "./components/Sidebar.vue";
 import { ref, onMounted } from "vue";
 import Modal from "./components/ui/Modal.vue";
 
+const showModal = ref(false);
+
 const landed = ref(false);
+const patch = ref("");
 
 const formatPatch = (patch = "No patches found") => {
   const breakString = patch.replace(/\./g, `.<br>`);
@@ -16,8 +19,6 @@ function submitLanded() {
   landed.value = false;
   console.log(landed.value);
 }
-
-const patch = ref("");
 
 onMounted(async () => {
   try {
@@ -35,19 +36,20 @@ onMounted(async () => {
 <template>
   <DateScreen v-if="landed" @submit-landed="submitLanded" />
   <div v-if="!landed">
-    <Sidebar />
     <Modal
       style="
         padding-left: 10px;
-        text-shadow: 1px 1px 2px black;
+        text-shadow: 1px 1px 3px black;
         font-style: italic;
       "
       title="What's New? (Jun 17, 2025 patch)"
       button="Latest Patch"
-      color="#d90000"
+      :showModal="showModal"
+      @close="showModal = false"
     >
-      <p v-html="patch" style="line-height: 2rem"></p>
+      <p v-html="patch" style="line-height: 2.5rem"></p>
     </Modal>
+    <Sidebar @open-patch-notes="showModal = true" />
     <div style="padding-right: 17.5%">
       <RouterView />
     </div>
@@ -58,7 +60,6 @@ onMounted(async () => {
 @import "./assets/themes.css";
 html {
   scroll-behavior: smooth;
-  /* user-select: none; */
   overflow-y: scroll;
 }
 

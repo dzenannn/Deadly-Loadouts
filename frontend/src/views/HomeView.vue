@@ -6,7 +6,7 @@
     </h2>
     <div class="first-section">
       <div>
-        <p style="font-size: 1.2rem">
+        <p>
           Are you ready to dominate the fog and rise above the rest? At
           <DeadlyLoadoutText />
           we provide you with the most optimized builds, strategies, and tools
@@ -240,7 +240,7 @@
           font-style: italic;
         "
       />
-      <p style="font-size: 1.2rem">
+      <p>
         No matter your role, <DeadlyLoadoutText /> offers specialized builds
         that work for you. Choose your favorite survivor or killer, explore
         their strengths, and discover the most effective loadouts that bring out
@@ -284,6 +284,10 @@ const imgArtwork =
   gap: 80px;
 }
 
+.first-section p {
+  font-size: 1.2rem;
+}
+
 .artwork img {
   border-radius: 15px;
   height: 45vh;
@@ -318,6 +322,10 @@ const imgArtwork =
   flex-direction: column;
   align-items: center;
   padding-bottom: 15rem;
+}
+
+.second-section p {
+  font-size: 1.2rem;
 }
 
 .loadoutButton {

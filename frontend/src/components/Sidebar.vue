@@ -1,6 +1,8 @@
 <script setup>
+import { defineEmits } from "vue";
 import "animate.css";
-import Modal from "./ui/Modal.vue";
+
+const emit = defineEmits(["open-patch-notes"]);
 </script>
 
 <template>
@@ -12,17 +14,17 @@ import Modal from "./ui/Modal.vue";
       <RouterLink to="/">Main page</RouterLink></a
     >
     <a
+      class="animate__animated animate__bounceInRight"
+      style="--animate-duration: 1.1s; cursor: pointer"
+    >
+      <p @click="$emit('open-patch-notes')">Patch Notes</p>
+    </a>
+    <a
       style="--animate-duration: 1s; line-height: 2.8rem"
       class="animate__animated animate__bounceInRight"
     >
       <RouterLink to="/loadouts">Loadouts</RouterLink></a
     >
-    <a
-      class="animate__animated animate__bounceInRight"
-      style="--animate-duration: 1.1s; cursor: pointer"
-    >
-      Nista
-    </a>
     <a
       class="animate__animated animate__bounceInRight"
       style="--animate-duration: 1.2s"
@@ -36,7 +38,7 @@ import Modal from "./ui/Modal.vue";
 @import url("https://fonts.googleapis.com/css2?family=Savate:ital,wght@0,200..900;1,200..900&display=swap");
 .sidebar {
   font-family: "Savate";
-  min-height: 100vh;
+  min-height: 100%;
   position: fixed;
   top: 0;
   right: 0;
@@ -48,7 +50,7 @@ import Modal from "./ui/Modal.vue";
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: 2.25rem;
+  font-size: 2rem;
   gap: 80px;
 }
 
