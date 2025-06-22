@@ -279,7 +279,7 @@ const imgArtwork =
 .first-section {
   display: flex;
   align-items: center;
-  padding-inline: 60px;
+  padding-inline: 80px;
   padding-top: 45px;
   gap: 80px;
 }
@@ -317,7 +317,7 @@ const imgArtwork =
 }
 
 .second-section {
-  padding: 60px 60px 60px 60px;
+  padding: 60px 80px 60px 80px;
   display: flex;
   flex-direction: column;
   align-items: center;
