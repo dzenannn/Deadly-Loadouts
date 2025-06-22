@@ -59,6 +59,7 @@ onMounted(async () => {
 <style>
 @import "./assets/themes.css";
 html {
+  user-select: none;
   scroll-behavior: smooth;
   overflow-y: scroll;
 }
