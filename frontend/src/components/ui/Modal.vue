@@ -20,22 +20,7 @@ export default {
     title: String,
   },
   data() {
-    return {
-      images: {
-        prva: {
-          src: "../../assets/claire-redfield.jpg",
-          alt: "Claire",
-        },
-        druga: {
-          src: "",
-          alt: "",
-        },
-        treca: {
-          src: "",
-          alt: "",
-        },
-      },
-    };
+    return {};
   },
   computed: {
     // color() {

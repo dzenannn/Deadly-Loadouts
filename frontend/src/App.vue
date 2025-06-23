@@ -4,6 +4,7 @@ import DateScreen from "./components/DateScreen.vue";
 import Sidebar from "./components/Sidebar.vue";
 import { ref, onMounted } from "vue";
 import Modal from "./components/ui/Modal.vue";
+import { supabase } from "./utils/supabase";
 
 const showModal = ref(false);
 
@@ -30,6 +31,18 @@ onMounted(async () => {
   } catch (e) {
     console.log(e.message);
   }
+});
+
+const users = ref([]);
+
+async function getTodos() {
+  let { data: users, error } = await supabase.from("users").select("*");
+
+  console.log(users);
+}
+
+onMounted(() => {
+  getTodos();
 });
 </script>
 
