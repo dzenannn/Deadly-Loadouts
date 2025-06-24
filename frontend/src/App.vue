@@ -4,7 +4,6 @@ import DateScreen from "./components/DateScreen.vue";
 import Sidebar from "./components/Sidebar.vue";
 import { ref, onMounted } from "vue";
 import Modal from "./components/ui/Modal.vue";
-import { supabase } from "./utils/supabase";
 
 const showModal = ref(false);
 
@@ -33,21 +32,25 @@ onMounted(async () => {
   }
 });
 
-const users = ref([]);
+// const users = ref([]);
 
-async function getTodos() {
-  let { data: users, error } = await supabase.from("users").select("*");
+// async function getTodos() {
+//   let { data: users, error } = await supabase.from("users").select("*");
 
-  console.log(users);
-}
+//   console.log(users);
+// }
 
-onMounted(() => {
-  getTodos();
-});
+// onMounted(() => {
+//   getTodos();
+// });
 </script>
 
 <template>
-  <DateScreen v-if="landed" @submit-landed="submitLanded" />
+  <DateScreen
+    v-if="landed"
+    style="overflow: hidden"
+    @submit-landed="submitLanded"
+  />
   <div v-if="!landed">
     <Modal
       style="

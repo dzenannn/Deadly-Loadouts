@@ -63,8 +63,8 @@ export default {
   content: "";
   position: absolute;
   inset: 0;
-  background: url("../../assets/huntress.jpg") center/cover no-repeat;
-  filter: blur(2px);
+  background: url("../../assets/bgr.jpg") center/cover no-repeat;
+  filter: blur(3px);
   z-index: -1;
   border-radius: 15px;
 }
@@ -75,11 +75,11 @@ export default {
   top: 10px;
   font-size: 28px;
   cursor: pointer;
-  color: #000;
+  color: #750000;
 }
 
 .close:hover {
-  color: #505050;
+  color: #e6e6e6;
 }
 
 a,

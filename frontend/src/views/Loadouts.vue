@@ -1,60 +1,102 @@
 <template>
   <div>
-    <h2 style="text-align: center">Loadout Builder</h2>
-    <!-- <div
-      style="display: flex; align-items: center; margin-top: 100px; gap: 30px"
-    >
-      <img
-        src="https://deadbydaylight.com/static/dd09945fdeec09efd789b1eb39efab42/a4a52/dbd_chap12_ghostface_keyart_03059329eb.jpg"
-        alt="ghostface"
-        style="
-          margin-left: 150px;
-          height: 200px;
-          width: 400px;
-          object-fit: cover;
-          border: 1px solid black;
-        "
-      />
-      <h1>Ghostface. Lorem, ipsum dolor.</h1>
-    </div> -->
-    <div class="builder">
-      <label for="killer">Killer</label>
-      <br />
-      <input type="text" v-model="killer" />
-      <button @click="createLoadout">Create</button>
+    <h2 id="title">
+      Loadouts <br />
+      <span id="sub">Build Your Own Loadouts</span>
+    </h2>
+    <h1></h1>
+    <div class="view">
+      <SignUp v-if="!loggedIn" />
+      <LogIn v-else />
     </div>
+    <div id="button"><Button name="Log Out" @click="logOut"></Button></div>
   </div>
 </template>
 
 <script>
-import axios from "axios";
+import { supabase } from "../utils/supabase";
+import LogIn from "../components/LogIn.vue";
+import SignUp from "../components/SignUp.vue";
+import Button from "../components/ui/Button.vue";
 
 export default {
   name: "Loadouts",
+  components: { SignUp, Button, LogIn },
   data() {
     return {
-      killer: "",
+      loggedIn: false,
     };
   },
   methods: {
-    async createLoadout() {
-      try {
-        const res = await axios.post(
-          "http://localhost:8000/api/loadouts.php",
-          {
-            killer: this.killer,
-          },
-          {
-            withCredentials: true,
-          }
-        );
-        console.log(`Killer sent => ${JSON.stringify(res.data.killer)}`);
-      } catch (e) {
-        alert("Error: " + e.message);
-      }
+    async logOut() {
+      let { error } = await supabase.auth.signOut();
     },
+    async getUser() {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      console.log(user);
+    },
+    // async getLoadouts() {
+    //   const {
+    //     data: { user },
+    //   } = await supabase.auth.getUser();
+    //   let { data: loadouts, error } = await supabase
+    //     .from("loadouts")
+    //     .select("*");
+    //   //
+    //   console.log(loadouts);
+    // },
+    // //
+    // selectKiller(param) {
+    //   this.killerSelected = true;
+    //   this.chosenLoadout.name = param;
+    //   this.chosenLoadout.content = this.loadoutMap.perks;
+    // },
+    // //
+    // async createLoadout() {
+    //   try {
+    //     const res = await axios.post(
+    //       "http://localhost:8000/api/loadouts.php",
+    //       {
+    //         killer: this.killer,
+    //       },
+    //       {
+    //         withCredentials: true,
+    //       }
+    //     );
+    //     console.log(`Killer sent => ${JSON.stringify(res.data.killer)}`);
+    //   } catch (e) {
+    //     alert("Error: " + e.message);
+    //   }
+    // },
   },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+#button {
+  justify-self: center;
+}
+#title {
+  color: #830000;
+  text-shadow: 1px 1px 4px black;
+  font-family: "Caprasimo";
+  font-size: 2rem;
+  padding-top: 2%;
+  text-align: center;
+  letter-spacing: 1rem;
+}
+
+#sub {
+  letter-spacing: 0.45rem;
+}
+
+.view {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>
