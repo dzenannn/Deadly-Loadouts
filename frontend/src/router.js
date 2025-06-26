@@ -2,7 +2,10 @@ import { createWebHistory, createRouter } from "vue-router";
 import HomeView from "./views/HomeView.vue";
 import UpdatesView from "./views/UpdatesView.vue";
 import TipsView from "./views/TipsView.vue";
-import Loadouts from "./views/Loadouts.vue";
+import LoadoutsView from "./views/LoadoutsView.vue";
+import SignUpView from "./views/SignUpView.vue";
+import LogInView from "./views/LogInView.vue";
+import { useAuthStore } from "./store";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -15,7 +18,7 @@ const router = createRouter({
     {
       path: "/loadouts",
       name: "loadouts",
-      component: Loadouts,
+      component: LoadoutsView,
     },
     {
       path: "/updates",
@@ -27,8 +30,28 @@ const router = createRouter({
       name: "tips",
       component: TipsView,
     },
+    {
+      path: "/register",
+      name: "register",
+      component: SignUpView,
+    },
+    {
+      path: "/login",
+      name: "login",
+      component: LogInView,
+    },
   ],
   linkActiveClass: "active-link",
+});
+
+router.beforeEach((to, from, next) => {
+  const store = useAuthStore();
+
+  if (to.name === "loadouts" && !store.loggedIn) {
+    next({ name: "login", query: { redirect: to.fullPath } });
+  } else {
+    next();
+  }
 });
 
 export default router;

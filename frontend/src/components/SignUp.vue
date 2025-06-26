@@ -1,39 +1,43 @@
 <template>
   <div class="signup">
-    <div>
-      <h2 style="text-align: center">Sign Up</h2>
+    <h2 style="text-align: center">Sign Up</h2>
+    <div class="signup-form">
       <h4>Email</h4>
-      <input v-model="email" type="email" name="email" id="email" />
+      <input v-model="store.email" type="email" name="email" id="email" />
       <h4>Password</h4>
-      <input v-model="password" type="password" name="pass" id="pass" />
+      <input v-model="store.password" type="password" name="pass" id="pass" />
     </div>
-    <Button name="Sign Up" @click="signUp"></Button>
+    <Button name="Sign Up" @click="store.signUp"></Button>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
-import { supabase } from "../utils/supabase";
 import Button from "./ui/Button.vue";
+import { useAuthStore } from "../store";
 
-const email = ref("");
-const password = ref("");
-
-async function signUp() {
-  let { data, error } = await supabase.auth.signUp({
-    email: email.value,
-    password: password.value,
-  });
-  if (error) alert(error.message);
-  if (!error) alert(`Signed up successfully!`);
-}
+const store = useAuthStore();
 </script>
 
 <style scoped>
 .signup {
+  margin-top: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.signup input {
+  width: 250px;
+  height: 30px;
+  border-radius: 10px;
+  border: none;
+  padding-inline: 10px;
 }
 </style>

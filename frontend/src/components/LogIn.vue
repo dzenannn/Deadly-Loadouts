@@ -1,32 +1,57 @@
 <template>
   <div class="login">
-    <div>
-      <h2 style="text-align: center">Login</h2>
+    <h2 style="text-align: center">Log In</h2>
+    <div class="login-form">
       <h4>Email</h4>
-      <input v-model="email" type="email" name="email" id="email" />
+      <input v-model="store.email" type="email" name="email" id="email" />
       <h4>Password</h4>
-      <input v-model="password" type="password" name="pass" id="pass" />
+      <input v-model="store.password" type="password" name="pass" id="pass" />
     </div>
-    <Button name="Login" @click="logIn"></Button>
+    <Button name="Log In" @click="store.logIn"></Button>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
-import { supabase } from "../utils/supabase";
 import Button from "./ui/Button.vue";
+import { useAuthStore } from "../store";
+import { useRouter, useRoute } from "vue-router";
+import { watch } from "vue";
 
-const email = ref("");
-const password = ref("");
+const store = useAuthStore();
+const router = useRouter();
+const route = useRoute();
 
-async function signUp() {
-  let { data, error } = await supabase.auth.signInWithPassword({
-    email: email.value,
-    password: password.value,
-  });
-  if (error) alert(error.message);
-  if (!error) alert(`Logged in successfully!`);
-}
+watch(
+  () => store.loggedIn,
+  (loggedIn) => {
+    if (loggedIn) {
+      const redirect = route.query.redirect || "/";
+      router.replace(redirect);
+    }
+  }
+);
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+.login {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.login input {
+  width: 250px;
+  height: 30px;
+  border-radius: 10px;
+  border: none;
+  padding-inline: 10px;
+}
+</style>
