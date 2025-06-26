@@ -8,12 +8,7 @@ import Modal from "./components/ui/Modal.vue";
 const showModal = ref(false);
 
 const landed = ref(false);
-const patch = ref("");
-
-const formatPatch = (patch = "No patches found") => {
-  const breakString = patch.replace(/\./g, `.<br>`);
-  return breakString.replace("unknown", "latest");
-};
+const patch = ref([]);
 
 function submitLanded() {
   landed.value = false;
@@ -25,8 +20,8 @@ onMounted(async () => {
     const res = await axios.get(
       "https://dbd-summarizer.onrender.com/patches?patch=510"
     );
-    const data = res.data;
-    patch.value = formatPatch(data);
+    const data = res.data.split(".");
+    patch.value = data.slice(0, -1);
   } catch (e) {
     console.log(e.message);
   }
@@ -63,7 +58,11 @@ onMounted(async () => {
       :showModal="showModal"
       @close="showModal = false"
     >
-      <p v-html="patch" style="line-height: 2.5rem"></p>
+      <ul style="line-height: 2.5rem" v-for="el in patch">
+        <li :key="el">
+          {{ el.concat(".") }}
+        </li>
+      </ul>
     </Modal>
     <Sidebar @open-patch-notes="showModal = true" />
     <div style="padding-right: 17.5%">
