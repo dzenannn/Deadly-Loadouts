@@ -4,9 +4,10 @@ import DateScreen from "./components/DateScreen.vue";
 import Sidebar from "./components/Sidebar.vue";
 import { ref, onMounted } from "vue";
 import Modal from "./components/ui/Modal.vue";
+import { useAuthStore } from "./store";
 
+const store = useAuthStore();
 const showModal = ref(false);
-
 const landed = ref(false);
 const patch = ref([]);
 
@@ -15,29 +16,23 @@ function submitLanded() {
   console.log(landed.value);
 }
 
-onMounted(async () => {
-  try {
-    const res = await axios.get(
-      "https://dbd-summarizer.onrender.com/patches?patch=510"
-    );
-    const data = res.data.split(".");
-    patch.value = data.slice(0, -1);
-  } catch (e) {
-    console.log(e.message);
-  }
-});
-
-// const users = ref([]);
-
-// async function getTodos() {
-//   let { data: users, error } = await supabase.from("users").select("*");
-
-//   console.log(users);
+// async function getPatch() {
+//   try {
+//     const res = await axios.get(
+//       "https://dbd-summarizer.onrender.com/patches?patch=510"
+//     );
+//     const data = res.data.split(".");
+//     patch.value = data.slice(0, -1);
+//   } catch (e) {
+//     console.log(e.message);
+//   }
 // }
 
-// onMounted(() => {
-//   getTodos();
-// });
+onMounted(() => {
+  // getPatch();
+  store.fetchUser();
+  store.initAuthListener();
+});
 </script>
 
 <template>
@@ -47,6 +42,7 @@ onMounted(async () => {
     @submit-landed="submitLanded"
   />
   <div v-if="!landed">
+    <button v-if="store.user" @click="store.logOut">Logout</button>
     <Modal
       style="
         padding-left: 10px;

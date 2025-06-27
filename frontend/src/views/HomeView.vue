@@ -257,9 +257,10 @@
         will help you sharpen your skills and survive longer – or hunt down your
         prey faster.
       </p>
-      <button class="loadoutButton">
-        <RouterLink to="/loadouts">Build your Loadout ⟶</RouterLink>
-      </button>
+
+      <RouterLink to="/loadouts" class="loadoutButton"
+        >Build your Loadout ⟶</RouterLink
+      >
     </div>
   </div>
 </template>

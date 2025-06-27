@@ -1,5 +1,5 @@
 <template>
-  <div class="login">
+  <div class="login" v-if="!store.user">
     <h2 style="text-align: center">Log In</h2>
     <div class="login-form">
       <h4>Email</h4>
@@ -8,6 +8,15 @@
       <input v-model="store.password" type="password" name="pass" id="pass" />
     </div>
     <Button name="Log In" @click="store.logIn"></Button>
+    <p>
+      Don't have an account?
+      <a><RouterLink to="/register">Sign up</RouterLink></a>
+    </p>
+  </div>
+  <div v-else>
+    Ulogovan si
+    <br />
+    <Button name="Log Out" @click="store.logOut"></Button>
   </div>
 </template>
 
@@ -22,9 +31,9 @@ const router = useRouter();
 const route = useRoute();
 
 watch(
-  () => store.loggedIn,
-  (loggedIn) => {
-    if (loggedIn) {
+  () => store.user,
+  (user) => {
+    if (user) {
       const redirect = route.query.redirect || "/";
       router.replace(redirect);
     }
@@ -33,6 +42,15 @@ watch(
 </script>
 
 <style scoped>
+p {
+  padding-top: 10px;
+}
+a {
+  color: #ff0000;
+}
+a:hover {
+  text-decoration: underline;
+}
 .login {
   margin-top: 50px;
   display: flex;

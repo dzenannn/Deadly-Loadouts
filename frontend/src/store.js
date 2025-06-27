@@ -5,30 +5,20 @@ export const useAuthStore = defineStore("auth", {
   state: () => ({
     email: "",
     password: "",
-    name: "Dzeno",
-    loggedIn: false,
-    currentUser: null,
-    count: 0,
+    user: null,
   }),
-  getters: {
-    doubleCount: (state) => state.count * 2,
-  },
   actions: {
-    increment() {
-      this.count++;
-    },
     async logIn() {
       let { data, error } = await supabase.auth.signInWithPassword({
         email: this.email,
         password: this.password,
       });
-      // after loged in/error handling ↓↓
       if (error) console.log(error.message);
       if (!error) {
-        console.log(`Logged in successfully!`);
-        this.loggedIn = true;
-        localStorage.setItem("logged", this.loggedIn);
-        this.currentUser = data.user;
+        alert(`Logged in successfully!`);
+        this.email = "";
+        this.password = "";
+        this.user = data?.user;
       }
     },
     async signUp() {
@@ -36,19 +26,34 @@ export const useAuthStore = defineStore("auth", {
         email: this.email,
         password: this.password,
       });
-      // after signed up/error handling ↓↓
       if (error) console.log(error.message);
       if (!error) {
         console.log(await supabase.auth.getUser());
       }
+      const user = data.user;
+      // on successful signup
+      const { error: insertError } = await supabase.from("loadouts").insert([
+        {
+          id: user.id,
+          loadouts: [],
+        },
+      ]);
+      if (insertError)
+        console.log("Failed to create loadouts row:", insertError);
+      if (!insertError) console.log("Empty loadouts for user created.");
     },
-    async getUser() {
-      await supabase.auth.getUser();
+    async fetchUser() {
+      const { data, error } = await supabase.auth.getUser();
+      this.user = data?.user || null;
     },
     async logOut() {
-      let { error } = await supabase.auth.signOut();
-      this.loggedIn = false;
-      if (error) console.log(error.message);
+      await supabase.auth.signOut();
+      this.user = null;
+    },
+    initAuthListener() {
+      supabase.auth.onAuthStateChange((event, session) => {
+        this.user = session?.user || null;
+      });
     },
   },
 });

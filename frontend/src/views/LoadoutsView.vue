@@ -4,7 +4,6 @@
       Loadouts <br />
       <span id="sub">Build Your Own Loadouts</span>
     </h2>
-    <button @click="store.logOut">Logout</button>
   </div>
 </template>
 
@@ -33,9 +32,9 @@ onMounted(() => {
 });
 
 watch(
-  () => store.loggedIn,
-  (loggedIn) => {
-    if (!loggedIn) {
+  () => store.user,
+  (user) => {
+    if (!user) {
       router.replace("/");
     }
   }

@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>Sign up View</h1>
     <SignUp />
   </div>
 </template>
