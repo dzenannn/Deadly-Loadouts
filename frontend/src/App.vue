@@ -42,7 +42,16 @@ onMounted(() => {
     @submit-landed="submitLanded"
   />
   <div v-if="!landed">
-    <button v-if="store.user" @click="store.logOut">Logout</button>
+    <h4 style="text-align: center" v-if="store.user">
+      User: {{ store.user.email.split("@")[0] }}
+    </h4>
+    <button
+      v-if="store.user"
+      @click="store.logOut"
+      style="padding-inline: 30px; margin-left: 10px"
+    >
+      Logout
+    </button>
     <Modal
       style="
         padding-left: 10px;

@@ -35,7 +35,10 @@ export const useAuthStore = defineStore("auth", {
       const { error: insertError } = await supabase.from("loadouts").insert([
         {
           id: user.id,
-          loadouts: [],
+          loadouts: {
+            id: user.id,
+            loadouts: [],
+          },
         },
       ]);
       if (insertError)
@@ -45,6 +48,7 @@ export const useAuthStore = defineStore("auth", {
     async fetchUser() {
       const { data, error } = await supabase.auth.getUser();
       this.user = data?.user || null;
+      console.log(this.user);
     },
     async logOut() {
       await supabase.auth.signOut();
