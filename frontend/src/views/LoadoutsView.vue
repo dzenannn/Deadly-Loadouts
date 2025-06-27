@@ -29,7 +29,7 @@ const loadoutsRef = ref([]);
 const newLoadoutName = ref("");
 const newPerks = ref("");
 
-//todo da se prilagodi kod loadouts(jsonb) iz supabase. u loadouts(jsonb) treba inicijalno da postoji id: user.id i loadouts: [].
+//todo: u loadouts(jsonb) treba inicijalno da postoji id: user.id i loadouts: [].
 
 async function fetchLoadouts() {
   const { data: userData } = await supabase.auth.getUser();
