@@ -1,13 +1,17 @@
 <template>
   <div>
-    <h2 id="title">
-      Loadouts <br />
-      <span id="sub">Build Your Own Loadouts</span>
-    </h2>
+    <h2 id="title">Loadouts</h2>
     <Characters />
     <div class="loadouts" v-for="(loadout, index) in loadoutsRef" :key="index">
-      <strong>{{ loadout.name }}</strong> -
-      {{ loadout.perks }}
+      <strong>{{ loadout.name }} →</strong>
+      <span
+        v-html="
+          loadout.perks.map((perk) => {
+            return `<i> ${perk}</i>`;
+          })
+        "
+      >
+      </span>
     </div>
     <div style="margin: auto">
       <h3>Dodaj novi loadout</h3>
