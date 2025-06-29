@@ -1,5 +1,5 @@
 <?php
-session_start(); // 🔴 Ovo je OBAVEZNO da bismo koristili $_SESSION
+session_start();
 
 header("Access-Control-Allow-Origin: http://localhost:5173");
 header("Access-Control-Allow-Credentials: true");
