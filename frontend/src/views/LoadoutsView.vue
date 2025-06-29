@@ -4,8 +4,10 @@
       Loadouts <br />
       <span id="sub">Build Your Own Loadouts</span>
     </h2>
+    <Characters />
     <div class="loadouts" v-for="(loadout, index) in loadoutsRef" :key="index">
-      <strong>{{ loadout.name }}</strong> - {{ loadout.perks }}
+      <strong>{{ loadout.name }}</strong> -
+      {{ loadout.perks }}
     </div>
     <div style="margin: auto">
       <h3>Dodaj novi loadout</h3>
@@ -22,14 +24,13 @@ import { watch } from "vue";
 import router from "../router";
 import { useAuthStore } from "../store";
 import { supabase } from "../utils/supabase";
+import Characters from "../components/Characters.vue";
 
 const store = useAuthStore();
 
 const loadoutsRef = ref([]);
 const newLoadoutName = ref("");
 const newPerks = ref("");
-
-//todo: u loadouts(jsonb) treba inicijalno da postoji id: user.id i loadouts: [].
 
 async function fetchLoadouts() {
   const { data: userData } = await supabase.auth.getUser();
@@ -47,13 +48,6 @@ async function fetchLoadouts() {
   }
 
   loadoutsRef.value = data.loadouts || [];
-  console.log(loadoutsRef.value);
-
-  // let { data: loadouts, error } = await supabase.from("loadouts").select("*").eq('id', userId);
-  // if (error) console.log(error.message);
-  // if (!error) {
-  //   loadoutsRef.value = loadouts || [];
-  // }
 }
 
 const addLoadout = async (newLoadout) => {

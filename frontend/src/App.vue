@@ -1,5 +1,4 @@
 <script setup>
-import axios from "axios";
 import DateScreen from "./components/DateScreen.vue";
 import Sidebar from "./components/Sidebar.vue";
 import { ref, onMounted } from "vue";
