@@ -1,40 +1,69 @@
 <template>
-  <div>
+  <div class="loadouts">
     <h2 id="title">Loadouts</h2>
-    <Characters />
-    <div class="loadouts" v-for="(loadout, index) in loadoutsRef" :key="index">
-      <strong>{{ loadout.name }} →</strong>
-      <span
-        v-html="
-          loadout.perks.map((perk) => {
-            return `<i> ${perk}</i>`;
-          })
-        "
-      >
-      </span>
+    <!-- Pass v-model to Characters for selection -->
+    <Characters v-model="selectedCharacter" />
+    <div class="map" v-for="(loadout, index) in loadoutsRef" :key="index">
+      <div class="loadout">
+        <template v-if="editIndex === index">
+          <input v-model="editName" placeholder="Loadout Name" />
+          <input v-model="editPerks" placeholder="Perks (comma separated)" />
+          <button @click="saveEdit(index)">Save</button>
+          <button @click="cancelEdit">Cancel</button>
+        </template>
+        <template v-else>
+          <strong>{{ loadout.name }}</strong>
+          <p
+            v-html="
+              loadout.perks.map((perk) => {
+                return `<i> ${perk}</i>`;
+              })
+            "
+          ></p>
+          <button @click="startEdit(index, loadout)">Edit</button>
+          <button
+            @click="deleteLoadout(index)"
+            style="margin-left: 8px; color: #830000"
+          >
+            Delete
+          </button>
+        </template>
+      </div>
     </div>
-    <div style="margin: auto">
+    <div class="add-loadout">
       <h3>Dodaj novi loadout</h3>
-      <input v-model="newLoadoutName" placeholder="Ime loadouta" />
-      <input v-model="newPerks" placeholder="Perkovi (zarezom)" />
-      <button @click="handleAdd">Dodaj</button>
+      <div>
+        <!-- Remove name input, only perks and character selection remain -->
+        <!-- Character selection is above, perks input below -->
+        <input v-model="newPerks" placeholder="Perks (separated with comma)" />
+      </div>
+      <Button name="Create Loadout" @click="handleAdd"></Button>
     </div>
   </div>
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
-import { watch } from "vue";
+import { onMounted, ref, watch } from "vue";
 import router from "../router";
 import { useAuthStore } from "../store";
 import { supabase } from "../utils/supabase";
 import Characters from "../components/Characters.vue";
+import Button from "../components/ui/Button.vue";
+
+// Character selection state
+const selectedCharacter = ref(""); // Add this line
 
 const store = useAuthStore();
 
 const loadoutsRef = ref([]);
 const newLoadoutName = ref("");
+const newLoadoutCharacter = ref("");
 const newPerks = ref("");
+
+// Edit state
+const editIndex = ref(null);
+const editName = ref("");
+const editPerks = ref("");
 
 async function fetchLoadouts() {
   const { data: userData } = await supabase.auth.getUser();
@@ -73,21 +102,96 @@ const addLoadout = async (newLoadout) => {
   }
 };
 
+// --- Add Loadout ---
 const handleAdd = async () => {
   const perksArray = newPerks.value
     .split(",")
     .map((perk) => perk.trim())
     .filter((p) => p !== "");
+  if (!selectedCharacter.value) {
+    alert("Please select a character!");
+    return;
+  }
   const newLoadout = {
-    name: newLoadoutName.value,
+    name: selectedCharacter.value, // Use selected character as name
     perks: perksArray,
   };
 
   await addLoadout(newLoadout);
 
-  newLoadoutName.value = "";
   newPerks.value = "";
+  // Optionally clear selectedCharacter.value if you want
 };
+
+// --- Update functionality ---
+function startEdit(index, loadout) {
+  editIndex.value = index;
+  editName.value = loadout.name;
+  editPerks.value = loadout.perks.join(", ");
+}
+
+function cancelEdit() {
+  editIndex.value = null;
+  editName.value = "";
+  editPerks.value = "";
+}
+
+async function saveEdit(index) {
+  const updatedLoadout = {
+    ...loadoutsRef.value[index],
+    name: editName.value,
+    perks: editPerks.value
+      .split(",")
+      .map((perk) => perk.trim())
+      .filter((p) => p !== ""),
+  };
+
+  // Update the loadout in the array
+  const updatedLoadouts = [...loadoutsRef.value];
+  updatedLoadouts[index] = updatedLoadout;
+
+  // Update in Supabase
+  const { data: userData } = await supabase.auth.getUser();
+  const userId = userData?.user?.id;
+  if (!userId) return;
+
+  const { error: updateError } = await supabase
+    .from("loadouts")
+    .update({ loadouts: updatedLoadouts })
+    .eq("id", userId);
+
+  if (updateError) {
+    console.log("Error while updating loadout: ", updateError);
+  } else {
+    loadoutsRef.value = updatedLoadouts;
+    cancelEdit();
+    console.log("Loadout updated!");
+  }
+}
+
+async function deleteLoadout(index) {
+  // Remove the loadout from the array
+  const updatedLoadouts = [...loadoutsRef.value];
+  updatedLoadouts.splice(index, 1);
+
+  // Update in Supabase
+  const { data: userData } = await supabase.auth.getUser();
+  const userId = userData?.user?.id;
+  if (!userId) return;
+
+  const { error: updateError } = await supabase
+    .from("loadouts")
+    .update({ loadouts: updatedLoadouts })
+    .eq("id", userId);
+
+  if (updateError) {
+    console.log("Error while deleting loadout: ", updateError);
+  } else {
+    loadoutsRef.value = updatedLoadouts;
+    cancelEdit();
+    console.log("Loadout deleted!");
+  }
+}
 
 onMounted(fetchLoadouts);
 
@@ -119,8 +223,18 @@ watch(
   letter-spacing: 0.45rem;
 }
 
-.loadouts {
-  padding: 20px 0 20px 0;
-  text-align: center;
+/* .loadouts {
+}
+
+.map {
+}
+
+.loadout {
+} */
+
+.add-loadout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 </style>

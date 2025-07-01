@@ -4,6 +4,7 @@ import Sidebar from "./components/Sidebar.vue";
 import { ref, onMounted } from "vue";
 import Modal from "./components/ui/Modal.vue";
 import { useAuthStore } from "./store";
+import Characters from "./components/Characters.vue";
 
 const store = useAuthStore();
 const showModal = ref(false);

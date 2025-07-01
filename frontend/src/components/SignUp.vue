@@ -18,13 +18,20 @@
 <script setup>
 import Button from "./ui/Button.vue";
 import { useAuthStore } from "../store";
-import { onMounted } from "vue";
+import { onMounted, watch } from "vue";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 const store = useAuthStore();
 
 onMounted(() => {
   store.fetchUser();
 });
+
+watch(
+  () => store.user,
+  (user) => (user ? router.replace("/") : "")
+);
 </script>
 
 <style scoped>
