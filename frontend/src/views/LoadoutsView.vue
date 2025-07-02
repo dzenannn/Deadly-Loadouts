@@ -1,7 +1,19 @@
 <template>
   <div class="loadouts">
     <h2 id="title">Loadouts</h2>
-    <Characters v-model="selectedCharacter" />
+    <div
+      style="
+        display: flex;
+        justify-content: center;
+        margin-bottom: 55px;
+        gap: 50px;
+      "
+    >
+      <Button name="Survivor" @click="selectedRole = 'survivor'"></Button>
+      <Button name="Killer" @click="selectedRole = 'killer'"></Button>
+    </div>
+    <PerksView :selected-role="selectedRole" />
+    <Characters />
     <div class="map" v-for="(loadout, index) in loadoutsRef" :key="index">
       <div class="loadout">
         <template v-if="editIndex === index">
@@ -46,10 +58,12 @@ import { useAuthStore } from "../store";
 import { supabase } from "../utils/supabase";
 import Characters from "../components/Characters.vue";
 import Button from "../components/ui/Button.vue";
+import PerksView from "./PerksView.vue";
 
 const dataa = ref({ perks: [], killers: [], survivors: [] });
 
 const selectedCharacter = ref("");
+const selectedRole = ref("");
 
 const store = useAuthStore();
 

@@ -5,6 +5,7 @@ import { ref, onMounted } from "vue";
 import Modal from "./components/ui/Modal.vue";
 import { useAuthStore } from "./store";
 import Characters from "./components/Characters.vue";
+import axios from "axios";
 
 const store = useAuthStore();
 const showModal = ref(false);
@@ -16,20 +17,20 @@ function submitLanded() {
   console.log(landed.value);
 }
 
-// async function getPatch() {
-//   try {
-//     const res = await axios.get(
-//       "https://dbd-summarizer.onrender.com/patches?patch=510"
-//     );
-//     const data = res.data.split(".");
-//     patch.value = data.slice(0, -1);
-//   } catch (e) {
-//     console.log(e.message);
-//   }
-// }
+async function getPatch() {
+  try {
+    const res = await axios.get(
+      "https://dbd-summarizer.onrender.com/patches?patch=510"
+    );
+    const data = res.data.split(".");
+    patch.value = data.slice(0, -1);
+  } catch (e) {
+    console.log(e.message);
+  }
+}
 
 onMounted(() => {
-  // getPatch();
+  getPatch();
   store.fetchUser();
   store.initAuthListener();
 });
