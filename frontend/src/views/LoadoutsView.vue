@@ -1,7 +1,6 @@
 <template>
   <div class="loadouts">
     <h2 id="title">Loadouts</h2>
-    <!-- Pass v-model to Characters for selection -->
     <Characters v-model="selectedCharacter" />
     <div class="map" v-for="(loadout, index) in loadoutsRef" :key="index">
       <div class="loadout">
@@ -33,8 +32,6 @@
     <div class="add-loadout">
       <h3>Dodaj novi loadout</h3>
       <div>
-        <!-- Remove name input, only perks and character selection remain -->
-        <!-- Character selection is above, perks input below -->
         <input v-model="newPerks" placeholder="Perks (separated with comma)" />
       </div>
       <Button name="Create Loadout" @click="handleAdd"></Button>
@@ -50,8 +47,9 @@ import { supabase } from "../utils/supabase";
 import Characters from "../components/Characters.vue";
 import Button from "../components/ui/Button.vue";
 
-// Character selection state
-const selectedCharacter = ref(""); // Add this line
+const dataa = ref({ perks: [], killers: [], survivors: [] });
+
+const selectedCharacter = ref("");
 
 const store = useAuthStore();
 
@@ -102,7 +100,6 @@ const addLoadout = async (newLoadout) => {
   }
 };
 
-// --- Add Loadout ---
 const handleAdd = async () => {
   const perksArray = newPerks.value
     .split(",")
@@ -113,17 +110,16 @@ const handleAdd = async () => {
     return;
   }
   const newLoadout = {
-    name: selectedCharacter.value, // Use selected character as name
+    name: selectedCharacter.value,
     perks: perksArray,
   };
 
   await addLoadout(newLoadout);
 
   newPerks.value = "";
-  // Optionally clear selectedCharacter.value if you want
+  selectedCharacter.value = "";
 };
 
-// --- Update functionality ---
 function startEdit(index, loadout) {
   editIndex.value = index;
   editName.value = loadout.name;
@@ -146,11 +142,9 @@ async function saveEdit(index) {
       .filter((p) => p !== ""),
   };
 
-  // Update the loadout in the array
   const updatedLoadouts = [...loadoutsRef.value];
   updatedLoadouts[index] = updatedLoadout;
 
-  // Update in Supabase
   const { data: userData } = await supabase.auth.getUser();
   const userId = userData?.user?.id;
   if (!userId) return;
@@ -170,11 +164,9 @@ async function saveEdit(index) {
 }
 
 async function deleteLoadout(index) {
-  // Remove the loadout from the array
   const updatedLoadouts = [...loadoutsRef.value];
   updatedLoadouts.splice(index, 1);
 
-  // Update in Supabase
   const { data: userData } = await supabase.auth.getUser();
   const userId = userData?.user?.id;
   if (!userId) return;
@@ -192,6 +184,15 @@ async function deleteLoadout(index) {
     console.log("Loadout deleted!");
   }
 }
+
+// async function fetchAssets() {
+//   try {
+//     const res = await axios.get("http://localhost:8888/api/assets.php");
+//     dataa.value = res.data || {};
+//   } catch (err) {
+//     console.error("Greška pri fetchovanju:", err);
+//   }
+// }
 
 onMounted(fetchLoadouts);
 
