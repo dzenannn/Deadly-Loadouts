@@ -1,7 +1,5 @@
 # Deadly Loadouts ReadMe
 
-
-
 ## How to run this project locally?
 ## Backend
 ### Enter this command in terminal:
