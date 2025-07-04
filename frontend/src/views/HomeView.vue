@@ -227,7 +227,7 @@
         </ul>
       </div>
       <div class="artwork">
-        <img :src="imgArtwork" alt="dbd_artwork" />
+        <img src="../assets/huntress.png" alt="dbd-artwork" />
       </div>
     </div>
     <div class="second-section">
@@ -269,9 +269,6 @@
 import "animate.css";
 import DeadlyLoadoutText from "../components/DeadlyLoadoutText.vue";
 import MeltingText from "../components/MeltingText.vue";
-
-const imgArtwork =
-  "https://img.goodfon.com/wallpaper/big/7/cf/dead-by-daylight-the-huntress-art.webp";
 </script>
 
 <style scoped>
