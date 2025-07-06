@@ -1,6 +1,29 @@
 <template>
   <div class="loadouts">
     <h2 id="title">Loadouts</h2>
+    <div class="map" v-for="(loadout, index) in loadoutsRef" :key="index">
+      <div class="loadout">
+        <template v-if="editIndex === index">
+          <input v-model="editName" placeholder="Loadout Name" />
+          <input v-model="editPerks" placeholder="Perks (comma separated)" />
+          <button @click="saveEdit(index)">Save</button>
+          <button @click="cancelEdit">Cancel</button>
+        </template>
+        <template v-else>
+          <strong>{{ loadout.name }}</strong>
+          <ul>
+            <li v-for="perk in loadout.perks">{{ perk.name || perk }}</li>
+          </ul>
+          <button @click="startEdit(index, loadout)">Edit</button>
+          <button
+            @click="deleteLoadout(index)"
+            style="margin-left: 8px; color: #830000"
+          >
+            Delete
+          </button>
+        </template>
+      </div>
+    </div>
     <div
       style="
         display: flex;
@@ -14,37 +37,10 @@
     </div>
     <PerksView :selected-role="selectedRole" />
     <Characters />
-    <div class="map" v-for="(loadout, index) in loadoutsRef" :key="index">
-      <div class="loadout">
-        <template v-if="editIndex === index">
-          <input v-model="editName" placeholder="Loadout Name" />
-          <input v-model="editPerks" placeholder="Perks (comma separated)" />
-          <button @click="saveEdit(index)">Save</button>
-          <button @click="cancelEdit">Cancel</button>
-        </template>
-        <template v-else>
-          <strong>{{ loadout.name }}</strong>
-          <p
-            v-html="
-              loadout.perks.map((perk) => {
-                return `<i> ${perk}</i>`;
-              })
-            "
-          ></p>
-          <button @click="startEdit(index, loadout)">Edit</button>
-          <button
-            @click="deleteLoadout(index)"
-            style="margin-left: 8px; color: #830000"
-          >
-            Delete
-          </button>
-        </template>
-      </div>
-    </div>
     <div class="add-loadout">
       <h3>Dodaj novi loadout</h3>
       <div>
-        <input v-model="newPerks" placeholder="Perks (separated with comma)" />
+        <input v-model="selectedCharacter" placeholder="Loadout Name" />
       </div>
       <Button name="Create Loadout" @click="handleAdd"></Button>
     </div>
@@ -60,12 +56,10 @@ import Characters from "../components/Characters.vue";
 import Button from "../components/ui/Button.vue";
 import PerksView from "./PerksView.vue";
 
-const dataa = ref({ perks: [], killers: [], survivors: [] });
+const store = useAuthStore();
 
 const selectedCharacter = ref("");
 const selectedRole = ref("");
-
-const store = useAuthStore();
 
 const loadoutsRef = ref([]);
 const newLoadoutName = ref("");
@@ -115,22 +109,18 @@ const addLoadout = async (newLoadout) => {
 };
 
 const handleAdd = async () => {
-  const perksArray = newPerks.value
-    .split(",")
-    .map((perk) => perk.trim())
-    .filter((p) => p !== "");
   if (!selectedCharacter.value) {
     alert("Please select a character!");
     return;
   }
   const newLoadout = {
     name: selectedCharacter.value,
-    perks: perksArray,
+    perks: store.perks,
   };
 
   await addLoadout(newLoadout);
 
-  newPerks.value = "";
+  store.perks = [];
   selectedCharacter.value = "";
 };
 
@@ -221,6 +211,13 @@ watch(
 </script>
 
 <style scoped>
+.loadouts {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 #button {
   justify-self: center;
 }

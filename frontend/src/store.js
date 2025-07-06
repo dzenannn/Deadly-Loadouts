@@ -6,6 +6,7 @@ export const useAuthStore = defineStore("auth", {
     email: "",
     password: "",
     user: null,
+    perks: [],
   }),
   actions: {
     async logIn() {

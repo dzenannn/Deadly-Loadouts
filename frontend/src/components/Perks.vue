@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="view">
     <input
       type="search"
       name="search"
@@ -14,6 +14,8 @@
         v-for="perk in filteredSurvivorPerks"
         :key="perk.id"
         v-if="selectedRole === 'survivor'"
+        @click="selectPerk(perk)"
+        :class="{ selected: store.perks.includes(perk) }"
       >
         <span>{{ perk.name }}</span>
       </div>
@@ -22,6 +24,8 @@
         v-for="perk in filteredKillerPerks"
         :key="perk.id"
         v-if="selectedRole === 'killer'"
+        @click="selectPerk(perk)"
+        :class="{ selected: store.perks.includes(perk) }"
       >
         <span>{{ perk.name }}</span>
       </div>
@@ -32,6 +36,9 @@
 <script setup>
 import { computed, onMounted, ref } from "vue";
 import axios from "axios";
+import { useAuthStore } from "../store";
+
+const store = useAuthStore();
 
 defineProps({
   selectedRole: String,
@@ -72,9 +79,28 @@ async function fetchPerks() {
 }
 
 onMounted(fetchPerks);
+
+const selectPerk = (perk) => {
+  if (store.perks.includes(perk)) {
+    const idx = store.perks.indexOf(perk);
+    if (idx !== -1) store.perks.splice(idx, 1);
+  } else if (store.perks.length === 4) {
+    alert("Four perks is maximum number!");
+  } else {
+    store.perks.push(perk);
+  }
+  console.log(store.perks);
+};
 </script>
 
 <style scoped>
+.view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .perks {
   margin-inline: 30px;
   padding-top: 10px;
@@ -101,5 +127,9 @@ onMounted(fetchPerks);
 .perk:hover {
   cursor: pointer;
   background-color: #c9215971;
+}
+
+.selected {
+  background-color: green !important;
 }
 </style>
