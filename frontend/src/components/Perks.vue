@@ -7,23 +7,19 @@
       placeholder="Search perk..."
       v-model="search"
     />
-    <br />
+    <button
+      v-if="shouldShowToggle"
+      @click="showAll = !showAll"
+      class="show-more-btn"
+      style="align-self: flex-end; padding-right: 15px"
+    >
+      {{ showAll ? "Show less..." : "Show more..." }}
+    </button>
     <div class="perks">
       <div
         class="perk"
-        v-for="perk in filteredSurvivorPerks"
+        v-for="perk in visiblePerks"
         :key="perk.id"
-        v-if="selectedRole === 'survivor'"
-        @click="selectPerk(perk)"
-        :class="{ selected: store.perks.includes(perk) }"
-      >
-        <span>{{ perk.name }}</span>
-      </div>
-      <div
-        class="perk"
-        v-for="perk in filteredKillerPerks"
-        :key="perk.id"
-        v-if="selectedRole === 'killer'"
         @click="selectPerk(perk)"
         :class="{ selected: store.perks.includes(perk) }"
       >
@@ -40,12 +36,14 @@ import { useAuthStore } from "../store";
 
 const store = useAuthStore();
 
-defineProps({
+const props = defineProps({
   selectedRole: String,
 });
 
 const perks = ref([]);
 const search = ref("");
+const showAll = ref(false);
+const MAX_VISIBLE = 8;
 
 const survivorPerks = computed(() =>
   perks.value.filter((p) => p.role === "survivor")
@@ -65,6 +63,20 @@ const filteredKillerPerks = computed(() =>
   killerPerks.value.filter((perk) =>
     perk.name.toLowerCase().includes(search.value.toLowerCase())
   )
+);
+
+const currentPerks = computed(() =>
+  props.selectedRole === "killer"
+    ? filteredKillerPerks.value
+    : filteredSurvivorPerks.value
+);
+
+const visiblePerks = computed(() =>
+  showAll.value ? currentPerks.value : currentPerks.value.slice(0, MAX_VISIBLE)
+);
+
+const shouldShowToggle = computed(
+  () => currentPerks.value.length > MAX_VISIBLE
 );
 
 async function fetchPerks() {
@@ -89,12 +101,12 @@ const selectPerk = (perk) => {
   } else {
     store.perks.push(perk);
   }
-  console.log(store.perks);
 };
 </script>
 
 <style scoped>
 .view {
+  max-width: 50vw;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -102,10 +114,7 @@ const selectPerk = (perk) => {
 }
 
 .perks {
-  margin-inline: 30px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-inline: 10px;
+  padding: 15px;
   background-color: #72000025;
   display: flex;
   flex-wrap: wrap;
@@ -116,9 +125,11 @@ const selectPerk = (perk) => {
 }
 
 .perk {
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 200px;
-  height: 50px;
+  height: auto;
   background-color: #c921593d;
   border-radius: 5px;
   padding: 5px;
@@ -131,5 +142,15 @@ const selectPerk = (perk) => {
 
 .selected {
   background-color: green !important;
+}
+
+.show-more-btn {
+  margin-top: 10px;
+  background: none;
+  border: none;
+  color: #830000;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 1rem;
 }
 </style>

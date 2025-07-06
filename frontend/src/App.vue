@@ -4,7 +4,6 @@ import Sidebar from "./components/Sidebar.vue";
 import { ref, onMounted } from "vue";
 import Modal from "./components/ui/Modal.vue";
 import { useAuthStore } from "./store";
-import Characters from "./components/Characters.vue";
 import axios from "axios";
 
 const store = useAuthStore();
@@ -43,16 +42,16 @@ onMounted(() => {
     @submit-landed="submitLanded"
   />
   <div v-if="!landed">
-    <h4 style="text-align: center" v-if="store.user">
+    <!-- <h4 style="text-align: center" v-if="store.user">
       User: {{ store.user.email.split("@")[0] }}
-    </h4>
-    <button
+    </h4> -->
+    <!-- <button
       v-if="store.user"
       @click="store.logOut"
       style="padding-inline: 30px; margin-left: 10px"
     >
       Logout
-    </button>
+    </button> -->
     <Modal
       style="
         padding-left: 10px;

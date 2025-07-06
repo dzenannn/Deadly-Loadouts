@@ -1,34 +1,32 @@
 <template>
   <div class="loadouts">
     <h2 id="title">Loadouts</h2>
-    <div class="map" v-for="(loadout, index) in loadoutsRef" :key="index">
-      <div class="loadout">
-        <template v-if="editIndex === index">
-          <input v-model="editName" placeholder="Loadout Name" />
-          <input v-model="editPerks" placeholder="Perks (comma separated)" />
-          <button @click="saveEdit(index)">Save</button>
-          <button @click="cancelEdit">Cancel</button>
-        </template>
-        <template v-else>
-          <strong>{{ loadout.name }}</strong>
-          <ul>
-            <li v-for="perk in loadout.perks">{{ perk.name || perk }}</li>
-          </ul>
-          <button @click="startEdit(index, loadout)">Edit</button>
-          <button
-            @click="deleteLoadout(index)"
-            style="margin-left: 8px; color: #830000"
-          >
-            Delete
-          </button>
-        </template>
+    <div class="map">
+      <div class="single" v-for="(loadout, index) in loadoutsRef" :key="index">
+        <h3>{{ loadout.name }}</h3>
+        <ul style="list-style-type: none">
+          <li v-for="perk in loadout.perks">- {{ perk.name || perk }}</li>
+        </ul>
+
+        <button @click="startEdit(index, loadout)">Edit</button>
+        <button
+          @click="deleteLoadout(index)"
+          style="margin-left: 8px; color: #830000"
+        >
+          Delete
+        </button>
       </div>
+    </div>
+    <br />
+    <h3>Dodaj novi loadout</h3>
+    <div>
+      <input v-model="selectedCharacter" placeholder="Loadout Name" />
     </div>
     <div
       style="
         display: flex;
         justify-content: center;
-        margin-bottom: 55px;
+        margin-bottom: 40px;
         gap: 50px;
       "
     >
@@ -37,13 +35,8 @@
     </div>
     <PerksView :selected-role="selectedRole" />
     <Characters />
-    <div class="add-loadout">
-      <h3>Dodaj novi loadout</h3>
-      <div>
-        <input v-model="selectedCharacter" placeholder="Loadout Name" />
-      </div>
-      <Button name="Create Loadout" @click="handleAdd"></Button>
-    </div>
+    <Button name="Create Loadout" @click="handleAdd"></Button>
+    <br />
   </div>
 </template>
 
@@ -122,6 +115,8 @@ const handleAdd = async () => {
 
   store.perks = [];
   selectedCharacter.value = "";
+
+  window.scrollTo(0, 0);
 };
 
 function startEdit(index, loadout) {
@@ -218,32 +213,37 @@ watch(
   justify-content: center;
 }
 
+.map {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+}
+
+.single {
+  background-color: #5e0000;
+  padding: 25px;
+  height: max-content;
+  min-width: 350px;
+  border-radius: 10px;
+}
+
+.single:hover {
+  background-color: #6d00009c;
+}
+
 #button {
   justify-self: center;
 }
 #title {
   color: #830000;
   text-shadow: 1px 1px 4px black;
+  padding-bottom: 20px;
   font-family: "Caprasimo";
   font-size: 2rem;
-  padding-top: 2%;
   text-align: center;
-  letter-spacing: 1rem;
+  letter-spacing: 0.5rem;
 }
-
-#sub {
-  letter-spacing: 0.45rem;
-}
-
-/* .loadouts {
-}
-
-.map {
-}
-
-.loadout {
-} */
-
 .add-loadout {
   display: flex;
   flex-direction: column;

@@ -1,0 +1,9 @@
+surv/killer perks interception,
+
+edit function
+
+inputs, ui & design
+
+auth state (username, logout button)
+
+tips & tricks population
