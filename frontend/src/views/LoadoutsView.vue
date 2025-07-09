@@ -17,7 +17,7 @@
       <input
         v-model="selectedCharacter"
         class="character-input"
-        placeholder="Character name..."
+        placeholder="Character/Loadout name..."
       />
       <PerksView :selected-role="selectedRole" :max-visible="8" />
       <Button name="Create Loadout" @click="handleAdd" class="create-btn" />
