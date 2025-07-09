@@ -1,10 +1,15 @@
 <template>
   <div>
-    <h2 style="text-align: center">Tips</h2>
-    <h3>User Account</h3>
-    <p v-if="killer">Killer name: {{ killer.killer }}</p>
-    <p v-else>Loading...</p>
-    <button @click="fetchUser">Load User</button>
+    <h1
+      style="
+        text-align: center;
+        font-family: monospace;
+        margin-top: 20rem;
+        color: orange;
+      "
+    >
+      // todo
+    </h1>
   </div>
 </template>
 

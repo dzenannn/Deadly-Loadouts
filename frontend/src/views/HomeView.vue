@@ -227,7 +227,10 @@
         </ul>
       </div>
       <div class="artwork">
-        <img src="../assets/huntress.png" alt="dbd-artwork" />
+        <img
+          src="https://e1.pxfuel.com/desktop-wallpaper/520/691/desktop-wallpaper-dead-by-daylight-dbd.jpg"
+          alt="dbd-artwork"
+        />
       </div>
     </div>
     <div class="second-section">

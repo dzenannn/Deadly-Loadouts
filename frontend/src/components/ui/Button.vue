@@ -16,16 +16,19 @@ export default {
   width: 15vw;
   margin-top: 50px;
   font-weight: 600;
-  background-color: #9e0000;
+  background-color: #830000;
   border-radius: 100px;
   box-shadow: rgba(187, 44, 44, 0.2) 0 -25px 18px -14px inset,
     rgba(187, 44, 44, 0.15) 0 1px 2px, rgba(187, 44, 44, 0.15) 0 2px 4px,
     rgba(187, 44, 44, 0.15) 0 4px 8px, rgba(187, 44, 44, 0.15) 0 8px 16px,
     rgba(187, 44, 44, 0.15) 0 16px 32px;
   color: #000;
+  font-weight: bold;
+  letter-spacing: 0.4rem;
   cursor: pointer;
   display: inline-block;
-  font-family: CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif;
+  font-family: monospace;
+  text-transform: uppercase;
   padding: 7px 20px;
   text-align: center;
   text-decoration: none;

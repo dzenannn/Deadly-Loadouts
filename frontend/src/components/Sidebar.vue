@@ -1,12 +1,39 @@
 <script setup>
 import { defineEmits } from "vue";
 import "animate.css";
+import { useAuthStore } from "../store";
+
+const store = useAuthStore();
 
 const emit = defineEmits(["open-patch-notes"]);
 </script>
 
 <template>
   <div class="sidebar">
+    <div
+      style="
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        top: 0;
+        font-size: 1.2rem;
+      "
+    >
+      <p v-if="store.user">User: {{ store.user.email.split("@")[0] }}</p>
+      <button
+        v-if="store.user"
+        @click="store.logOut"
+        style="
+          padding: 5px;
+          background-color: #830000;
+          border: none;
+          box-shadow: 0 0 10px black;
+          border-radius: 10px;
+        "
+      >
+        Logout
+      </button>
+    </div>
     <a
       class="animate__animated animate__bounceInRight"
       style="--animate-duration: 0.9s"
