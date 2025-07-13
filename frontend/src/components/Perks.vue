@@ -7,14 +7,23 @@
       placeholder="Search perk..."
       v-model="search"
     />
-    <button
-      v-if="shouldShowToggle"
-      @click="showAll = !showAll"
-      class="show-more-btn"
-      style="align-self: flex-end; padding-right: 15px"
-    >
-      {{ showAll ? "Show less..." : "Show more..." }}
-    </button>
+    <div style="display: flex; gap: 10px; align-items: center">
+      <button
+        v-if="shouldShowToggle"
+        @click="showAll = !showAll"
+        class="btn"
+        style="align-self: flex-end; padding-right: 15px"
+      >
+        {{ showAll ? "Show less..." : "Show more..." }}
+      </button>
+      <button
+        class="btn"
+        @click="resetPerks"
+        style="align-self: flex-end; padding-right: 15px"
+      >
+        Clear selected perks
+      </button>
+    </div>
     <div class="perks">
       <div
         class="perk"
@@ -44,6 +53,8 @@ const perks = ref([]);
 const search = ref("");
 const showAll = ref(false);
 const MAX_VISIBLE = 8;
+
+defineEmits(["perksVisible", "showAll"]);
 
 const survivorPerks = computed(() =>
   perks.value.filter((p) => p.role === "survivor")
@@ -93,6 +104,18 @@ async function fetchPerks() {
 onMounted(fetchPerks);
 
 const selectPerk = (perk) => {
+  if (store.perks.length > 0) {
+    const currentType = props.selectedRole;
+    if (perk.role !== currentType) {
+      alert(`You can only select ${currentType} perks for this build!`);
+      return;
+    }
+    if (store.perks.some((p) => p.role !== currentType)) {
+      alert(`You can only select ${currentType} perks for this build!`);
+      return;
+    }
+  }
+
   if (store.perks.includes(perk)) {
     const idx = store.perks.indexOf(perk);
     if (idx !== -1) store.perks.splice(idx, 1);
@@ -102,6 +125,8 @@ const selectPerk = (perk) => {
     store.perks.push(perk);
   }
 };
+
+const resetPerks = () => (store.perks = []);
 </script>
 
 <style scoped>
@@ -141,16 +166,25 @@ const selectPerk = (perk) => {
 }
 
 .selected {
-  background-color: green !important;
+  background-color: rgb(0, 104, 0) !important;
 }
 
-.show-more-btn {
+.btn {
   margin-top: 10px;
   background: none;
-  border: none;
+  border: 2px solid #830000;
   color: #830000;
   font-weight: bold;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 0.75rem;
+  border-radius: 6px;
+  padding: 4px 16px;
+  transition: background 0.15s, color 0.15s;
+  margin-bottom: 5px;
+}
+
+.btn:hover {
+  background: #830000;
+  color: #fff;
 }
 </style>

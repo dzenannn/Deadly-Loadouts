@@ -132,9 +132,6 @@ const selectedCharacter = ref("");
 const selectedRole = ref("");
 
 const loadoutsRef = ref([]);
-const newLoadoutName = ref("");
-const newLoadoutCharacter = ref("");
-const newPerks = ref("");
 
 const editIndex = ref(null);
 const editName = ref("");

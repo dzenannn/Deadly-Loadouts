@@ -18,9 +18,7 @@ function submitLanded() {
 
 async function getPatch() {
   try {
-    const res = await axios.get(
-      "https://dbd-summarizer.onrender.com/patches?patch=510"
-    );
+    const res = await axios.get("https://dbd-summarizer.onrender.com/patches");
     const data = res.data.split(".");
     patch.value = data.slice(0, -1);
   } catch (e) {
@@ -48,7 +46,7 @@ onMounted(() => {
         text-shadow: 1px 1px 3px black;
         font-style: italic;
       "
-      title="What's New? (Jun 17, 2025 patch)"
+      title="Latest patches summary"
       button="Latest Patch"
       :showModal="showModal"
       @close="showModal = false"
