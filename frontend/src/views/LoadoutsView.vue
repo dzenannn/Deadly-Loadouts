@@ -178,7 +178,7 @@ const addLoadout = async (newLoadout) => {
 const handleAdd = async () => {
   const limitedPerks = store.perks.slice(0, 8);
   if (!selectedCharacter.value) {
-    alert("Please select a character!");
+    alert("Enter character/loadout name!");
     return;
   }
   if (limitedPerks.length === 0) {
