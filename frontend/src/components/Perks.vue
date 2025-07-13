@@ -92,7 +92,7 @@ const shouldShowToggle = computed(
 
 async function fetchPerks() {
   try {
-    const res = await axios.get("http://localhost:8888/api/proxy.php", {
+    const res = await axios.get("https://www.deadly-loadouts.ct.ws/proxy.php", {
       params: { path: "api/perks" },
     });
     perks.value = Object.values(res.data) || [];

@@ -10,7 +10,7 @@ const characters = ref({});
 
 async function fetchCharacters() {
   try {
-    const res = await axios.get("http://localhost:8888/api/proxy.php", {
+    const res = await axios.get("https://www.deadly-loadouts.ct.ws/proxy.php", {
       params: { path: "api/characters" },
     });
     characters.value = res.data || {};
